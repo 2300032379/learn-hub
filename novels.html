@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Hub - Novels</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1 class="header-title">Learning Hub</h1>
+        <p class="header-subtitle">Literary masterpieces</p>
+      </div>
+      <div class="header-actions">
+        <span id="userGreeting" style="color: var(--accent-brown); font-weight: 500;"></span>
+        <button class="btn-logout" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn-back" onclick="navigateTo('home.html')">← Back</button>
+        <h2 class="page-title">Novels</h2>
+      </div>
+    </div>
+
+    <!-- Novels Grid -->
+    <div class="content-grid">
+      <!-- Novel 1 -->
+      <div class="content-card" onclick="readNovel('novel1')">
+        <div class="content-card-image">📘</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Lighthouse Keeper</h3>
+          <p class="content-card-description">An isolated lighthouse keeper discovers that solitude holds the key to understanding humanity.</p>
+          <div class="content-card-meta">Sarah Mitchell • 280 pages • Fiction</div>
+        </div>
+      </div>
+
+      <!-- Novel 2 -->
+      <div class="content-card" onclick="readNovel('novel2')">
+        <div class="content-card-image">📗</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Echoes of Tomorrow</h3>
+          <p class="content-card-description">A scientist discovers a way to communicate with parallel versions of herself across dimensions.</p>
+          <div class="content-card-meta">James Chen • 320 pages • Science Fiction</div>
+        </div>
+      </div>
+
+      <!-- Novel 3 -->
+      <div class="content-card" onclick="readNovel('novel3')">
+        <div class="content-card-image">📙</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Last Waltz</h3>
+          <p class="content-card-description">A ballroom dancer must choose between her art and the love that could transform her life.</p>
+          <div class="content-card-meta">Elena Rodriguez • 250 pages • Romance</div>
+        </div>
+      </div>
+
+      <!-- Novel 4 -->
+      <div class="content-card" onclick="readNovel('novel4')">
+        <div class="content-card-image">📕</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Forgotten City</h3>
+          <p class="content-card-description">An explorer uncovers a hidden civilization in the Amazon rainforest and must protect its secrets.</p>
+          <div class="content-card-meta">Marcus Brooks • 380 pages • Adventure</div>
+        </div>
+      </div>
+
+      <!-- Novel 5 -->
+      <div class="content-card" onclick="readNovel('novel5')">
+        <div class="content-card-image">📔</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Whispers in the Attic</h3>
+          <p class="content-card-description">A mysterious attic holds the diary of a woman whose story spans a century of secrets and revelations.</p>
+          <div class="content-card-meta">Emma Williams • 310 pages • Mystery</div>
+        </div>
+      </div>
+
+      <!-- Novel 6 -->
+      <div class="content-card" onclick="readNovel('novel6')">
+        <div class="content-card-image">📓</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Weight of Words</h3>
+          <p class="content-card-description">A poet recovering from trauma rediscovers her voice and helps an entire community heal through her words.</p>
+          <div class="content-card-meta">Grace Park • 290 pages • Contemporary Fiction</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Novel Reader -->
+    <div id="novelReader" style="display: none; margin-top: 3rem;">
+      <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+        <button class="btn-back" onclick="backToNovels()">← Back to Novels</button>
+      </div>
+      <div class="reader-container">
+        <h2 class="reader-title" id="novelTitle"></h2>
+        <div class="reader-meta" id="novelMeta"></div>
+        <div class="reader-content" id="novelContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Sample novels content (excerpts)
+    const novelsData = {
+      novel1: {
+        title: 'The Lighthouse Keeper',
+        meta: 'By Sarah Mitchell • 280 pages • Fiction',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">CHAPTER 1: THE ARRIVAL</h3>
+          <p>The lighthouse stood on the rocky peninsula like a sentinel guarding the secrets of the sea. Thomas arrived on a grey morning, carrying nothing but a suitcase and the weight of a decision he'd made months ago.</p>
+          <p>The previous keeper had left only a logbook and a note: "The light never stops. Neither should you."</p>
+          <p>As Thomas climbed the spiral stairs, each step echoing through the tower, he wondered if solitude was a refuge or a prison. Below him, the waves crashed against the rocks in their eternal rhythm, indifferent to his contemplation.</p>
+          <p>That night, as he lit the beacon for the first time, something shifted within him. The lighthouse wasn't just a structure of stone and glass. It was a living entity, breathing with the ocean's pulse, speaking a language only the truly alone could understand.</p>
+          <p>Thomas realized that in choosing to keep the light burning, he had chosen to keep himself alive in a way the world beyond would never comprehend.</p>
+          <p style="margin-top: 2rem; font-style: italic;">The novel continues through chapters that explore the keeper's journey from isolation to connection, from despair to hope, as ships pass in the night and he discovers that loneliness is not the absence of people, but the presence of understanding.</p>`
+      },
+      novel2: {
+        title: 'Echoes of Tomorrow',
+        meta: 'By James Chen • 320 pages • Science Fiction',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">CHAPTER 2: THE BREAKTHROUGH</h3>
+          <p>Dr. Ana Vasquez stared at the data streaming across her screen. For fifteen years, she had pursued this moment. And now, it was actually happening.</p>
+          <p>"Dimensional Bridge activated," her AI assistant announced calmly, as if it hadn't just changed the course of human history.</p>
+          <p>The first voice that came through was her own. "Hello, Ana. I am you, from a dimension where you made different choices."</p>
+          <p>Ana's hands trembled. This wasn't theoretical anymore. This was real. She was about to encounter versions of herself that had lived different lives, made different decisions, earned different scars.</p>
+          <p>Over the next hours, she spoke with herself—multiple versions. Some were successful scientists, others were teachers or mothers. One was a concert pianist. Another had chosen engineering over physics.</p>
+          <p>In each conversation, Ana discovered a piece of the person she could have been. And through these echoes across dimensions, she finally understood that every path not taken wasn't a loss—it was a different kind of gain.</p>
+          <p style="margin-top: 2rem; font-style: italic;">The story unfolds as Ana learns that parallel universes aren't just scientific curiosities, but mirrors of possibility, teaching her that the person she is now is the sum of all the people she could have been.</p>`
+      },
+      novel3: {
+        title: 'The Last Waltz',
+        meta: 'By Elena Rodriguez • 250 pages • Romance',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">CHAPTER 1: THE DANCE</h3>
+          <p>Isabelle had never believed in love. She believed in rhythm, in the perfect extension of a leg, in the exact moment a dancer becomes one with the music. These were real. Love was fiction.</p>
+          <p>Then she met Marcus at a performance. He watched her like she was poetry written in motion. When he finally spoke to her after the show, she was already rehearsing reasons to push him away.</p>
+          <p>"You dance like you're telling a story," he said.</p>
+          <p>"It's just movement," she replied, but her hand didn't pull away when he held it.</p>
+          <p>For months, Isabelle tried to balance two worlds—the theater where she was a goddess, and the ordinary life where Marcus loved her simply for being human. The conflict between these two women inside her grew more painful each day.</p>
+          <p>One night, as she performed her most important role, Marcus was in the audience. During the final waltz, Isabelle realized the choice wasn't between her art and his love. The choice was whether she could be both—a dancer and a woman, an artist and a person worth loving.</p>
+          <p style="margin-top: 2rem; font-style: italic;">Through beautiful descriptions of dance and deepening romance, the novel explores the sacrifice artists make and the transformative power of choosing love without losing yourself.</p>`
+      },
+      novel4: {
+        title: 'The Forgotten City',
+        meta: 'By Marcus Brooks • 380 pages • Adventure',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">CHAPTER 3: DISCOVERY</h3>
+          <p>Dr. James Riverstone had spent twenty years studying weathered maps and ancient texts. Everyone said the city was a myth. Everyone was wrong.</p>
+          <p>When his team finally broke through the jungle canopy and saw the stone structures rising from the green darkness, James fell to his knees. Vines and centuries couldn't hide the majesty of what the jungle had protected all this time.</p>
+          <p>The city was pristine—as if its inhabitants had simply vanished one day. The streets were lined with sculptures, and every building told a story of a sophisticated civilization that had thrived in harmony with nature.</p>
+          <p>But there was something else. Warnings. Carved into the deepest temple walls, repeated over and over: "The knowledge we have kept here must remain hidden. The world is not ready."</p>
+          <p>James faced an impossible choice. Reveal the city to the world and risk its destruction by those who would exploit it? Or keep the secret, keeping the hidden city hidden for another thousand years?</p>
+          <p style="margin-top: 2rem; font-style: italic;">The adventure becomes an ethical journey as James realizes that sometimes, discovery means choosing to let mysteries remain, and protection is the greatest responsibility of all.</p>`
+      },
+      novel5: {
+        title: 'Whispers in the Attic',
+        meta: 'By Emma Williams • 310 pages • Mystery',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">THE DIARY - 1924</h3>
+          <p>"I am writing this in the attic, where I have hidden myself away from the expectations of this world. My name is Clara, and I am a woman who dared to love the wrong person."</p>
+          <p>When Margaret discovers the diary in her inheritance, she opens a door to a century-old mystery. Clara's words paint a picture of a life lived in secret, of a love that defied social boundaries, of choices made and consequences borne in silence.</p>
+          <p>As Margaret reads through the decades of entries—following Clara from young woman to old age—she begins to recognize patterns. Clara's secrets aren't just her own. They connect to Margaret's family, to her grandmother's life, to the reason her own path led her here.</p>
+          <p>The more Margaret reads, the more she understands: the attic has been a repository of truth all along, waiting for someone brave enough to own the complicated history hidden in its shadows.</p>
+          <p style="margin-top: 2rem; font-style: italic;">The novel weaves between Clara's diary entries from 1924-1994 and Margaret's present-day discovery, revealing how the secrets of the past shape the possibilities of the future.</p>`
+      },
+      novel6: {
+        title: 'The Weight of Words',
+        meta: 'By Grace Park • 290 pages • Contemporary Fiction',
+        content: `<h3 style="color: var(--accent-brown); margin-top: 2rem; margin-bottom: 1rem;">CHAPTER 1: SILENCE</h3>
+          <p>For three years, Sophia hadn't written a single word. Not in her journal, not in letters, barely in emails to necessary people. The trauma had stolen not just her peace, but her voice—the very instrument she had used to touch the world.</p>
+          <p>The therapy office suggested a poetry circle. Sophia almost laughed. How could she share words she couldn't even write?</p>
+          <p>But there was something about the circle. The faces of people carrying their own silence. The tentative way they shared fragments of their stories. And somehow, in listening to them, Sophia began to feel the words stirring inside her again.</p>
+          <p>Her first poem was only a whisper. But it was enough. The group listened like every word mattered, because to them, it did. For the first time since the trauma, Sophia felt seen.</p>
+          <p>As she wrote more, something remarkable happened. The community around her started to heal too. Each poem she shared was a mirror others saw themselves reflected in. And together, they discovered that words could be medicine.</p>
+          <p style="margin-top: 2rem; font-style: italic;">Through the power of poetry and connection, Sophia's journey becomes a story about reclaiming your voice and learning that healing is never done alone.</p>`
+      }
+    };
+
+    // Read novel
+    function readNovel(novelId) {
+      const novel = novelsData[novelId];
+      if (novel) {
+        document.getElementById('novelReader').style.display = 'block';
+        document.getElementById('novelTitle').textContent = novel.title;
+        document.getElementById('novelMeta').textContent = novel.meta;
+        document.getElementById('novelContent').innerHTML = novel.content;
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Back to novels list
+    function backToNovels() {
+      document.getElementById('novelReader').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // Update user greeting
+    window.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUser();
+      if (user) {
+        document.getElementById('userGreeting').textContent = `Hi, ${user.username}!`;
+      }
+    });
+  </script>
+</body>
+</html>

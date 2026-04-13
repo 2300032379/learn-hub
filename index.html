@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="splash-container">
+    <div class="splash-content">
+      <h1 class="splash-title">Learning Hub</h1>
+      <p class="splash-subtitle">Discover. Learn. Grow.</p>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script>
+    // Redirect to login page after 2-3 seconds
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        window.location.href = 'login.html';
+      }, 2500); // 2.5 seconds
+    });
+  </script>
+</body>
+</html>

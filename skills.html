@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Hub - Skills</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1 class="header-title">Learning Hub</h1>
+        <p class="header-subtitle">Master new skills</p>
+      </div>
+      <div class="header-actions">
+        <span id="userGreeting" style="color: var(--accent-brown); font-weight: 500;"></span>
+        <button class="btn-logout" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn-back" onclick="navigateTo('home.html')">← Back</button>
+        <h2 class="page-title">Skills</h2>
+      </div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="content-grid">
+      <!-- Programming -->
+      <div class="content-card" onclick="viewSkillDetail('programming')">
+        <div class="content-card-image">💻</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Programming</h3>
+          <p class="content-card-description">Learn Python, HTML, CSS, and JavaScript fundamentals.</p>
+          <div class="content-card-meta">4 Lessons • Beginner to Advanced</div>
+        </div>
+      </div>
+
+      <!-- Communication -->
+      <div class="content-card" onclick="viewSkillDetail('communication')">
+        <div class="content-card-image">🗣️</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Communication</h3>
+          <p class="content-card-description">Improve public speaking, presentation, and writing skills.</p>
+          <div class="content-card-meta">3 Lessons • All Levels</div>
+        </div>
+      </div>
+
+      <!-- Aptitude -->
+      <div class="content-card" onclick="viewSkillDetail('aptitude')">
+        <div class="content-card-image">🧠</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Aptitude</h3>
+          <p class="content-card-description">Master logical reasoning, problem-solving, and analytical skills.</p>
+          <div class="content-card-meta">5 Lessons • Intermediate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill Detail Page -->
+    <div id="skillDetail" style="display: none; margin-top: 3rem;">
+      <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+        <button class="btn-back" onclick="backToSkills()">← Back to Skills</button>
+        <h2 class="page-title" id="skillDetailTitle"></h2>
+      </div>
+
+      <div id="skillContent" class="reader-container"></div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Sample skill content
+    const skillsData = {
+      programming: {
+        title: 'Programming',
+        content: `
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Python Basics</h3>
+          <p>Python is a versatile, beginner-friendly programming language. Learn variables, data types, loops, and functions.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">HTML & CSS</h3>
+          <p>Create beautiful web pages with HTML for structure and CSS for styling. Master flexbox and grid layouts for responsive design.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">JavaScript</h3>
+          <p>Add interactivity to your websites with JavaScript. Learn DOM manipulation, event handling, and modern ES6+ features.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Practice Projects</h3>
+          <p>Build real-world projects: To-Do App, Weather Dashboard, E-commerce Site, and more. Apply your knowledge in practical scenarios.</p>
+        `
+      },
+      communication: {
+        title: 'Communication Skills',
+        content: `
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Public Speaking</h3>
+          <p>Overcome nervousness and deliver compelling presentations. Learn voice modulation, body language, and audience engagement techniques.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Business Writing</h3>
+          <p>Master professional emails, reports, and proposals. Enhance clarity, conciseness, and persuasion in your written communication.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Listening & Empathy</h3>
+          <p>Develop active listening skills and emotional intelligence. Build stronger relationships through empathetic communication.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Conflict Resolution</h3>
+          <p>Handle disagreements constructively. Learn negotiation techniques and collaborative problem-solving approaches.</p>
+        `
+      },
+      aptitude: {
+        title: 'Aptitude Skills',
+        content: `
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Logical Reasoning</h3>
+          <p>Enhance your analytical thinking with logic puzzles, pattern recognition, and deductive reasoning exercises.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Quantitative Analysis</h3>
+          <p>Master numerical problem-solving, data interpretation, and mathematical concepts essential for competitive exams.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Verbal Ability</h3>
+          <p>Improve reading comprehension, vocabulary, and critical thinking through diverse texts and exercises.</p>
+          
+          <h3 style="color: var(--accent-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Problem Solving</h3>
+          <p>Learn strategies for approaching complex problems, breaking them down, and finding efficient solutions.</p>
+        `
+      }
+    };
+
+    // View skill detail
+    function viewSkillDetail(skillId) {
+      const skill = skillsData[skillId];
+      if (skill) {
+        document.getElementById('skillDetail').style.display = 'block';
+        document.getElementById('skillDetailTitle').textContent = skill.title;
+        document.getElementById('skillContent').innerHTML = skill.content;
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Back to skills list
+    function backToSkills() {
+      document.getElementById('skillDetail').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // Update user greeting
+    window.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUser();
+      if (user) {
+        document.getElementById('userGreeting').textContent = `Hi, ${user.username}!`;
+      }
+    });
+  </script>
+</body>
+</html>

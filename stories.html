@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Hub - Stories</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1 class="header-title">Learning Hub</h1>
+        <p class="header-subtitle">Inspiring narratives</p>
+      </div>
+      <div class="header-actions">
+        <span id="userGreeting" style="color: var(--accent-brown); font-weight: 500;"></span>
+        <button class="btn-logout" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn-back" onclick="navigateTo('home.html')">← Back</button>
+        <h2 class="page-title">Stories</h2>
+      </div>
+    </div>
+
+    <!-- Stories Grid -->
+    <div class="content-grid">
+      <!-- Story 1 -->
+      <div class="content-card" onclick="readStory('story1')">
+        <div class="content-card-image">✨</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Dream Catcher</h3>
+          <p class="content-card-description">A young artist discovers that her paintings hold the power to change lives.</p>
+          <div class="content-card-meta">15 min read • Drama</div>
+        </div>
+      </div>
+
+      <!-- Story 2 -->
+      <div class="content-card" onclick="readStory('story2')">
+        <div class="content-card-image">🌙</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Midnight Conversations</h3>
+          <p class="content-card-description">Two strangers meet at a café and share their deepest secrets under the moonlight.</p>
+          <div class="content-card-meta">12 min read • Romance</div>
+        </div>
+      </div>
+
+      <!-- Story 3 -->
+      <div class="content-card" onclick="readStory('story3')">
+        <div class="content-card-image">🏔️</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">The Last Mountain Climb</h3>
+          <p class="content-card-description">An experienced mountaineer faces her greatest challenge and discovers her true strength.</p>
+          <div class="content-card-meta">18 min read • Adventure</div>
+        </div>
+      </div>
+
+      <!-- Story 4 -->
+      <div class="content-card" onclick="readStory('story4')">
+        <div class="content-card-image">🌿</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Garden of Secrets</h3>
+          <p class="content-card-description">An old garden holds mysteries that change a family's destiny forever.</p>
+          <div class="content-card-meta">20 min read • Mystery</div>
+        </div>
+      </div>
+
+      <!-- Story 5 -->
+      <div class="content-card" onclick="readStory('story5')">
+        <div class="content-card-image">💝</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Letters Unsent</h3>
+          <p class="content-card-description">A collection of letters written but never sent, revealing love and regret.</p>
+          <div class="content-card-meta">16 min read • Drama</div>
+        </div>
+      </div>
+
+      <!-- Story 6 -->
+      <div class="content-card" onclick="readStory('story6')">
+        <div class="content-card-image">🎨</div>
+        <div class="content-card-body">
+          <h3 class="content-card-title">Colors of the Soul</h3>
+          <p class="content-card-description">A synesthete artist sees life through colors and teaches the world a new way to perceive beauty.</p>
+          <div class="content-card-meta">14 min read • Inspirational</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story Reader -->
+    <div id="storyReader" style="display: none; margin-top: 3rem;">
+      <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+        <button class="btn-back" onclick="backToStories()">← Back to Stories</button>
+      </div>
+      <div class="reader-container">
+        <h2 class="reader-title" id="storyTitle"></h2>
+        <div class="reader-meta" id="storyMeta"></div>
+        <div class="reader-content" id="storyContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Sample stories content
+    const storiesData = {
+      story1: {
+        title: 'The Dream Catcher',
+        meta: 'Written by Sarah Mitchell • 15 min read',
+        content: `<p>Maya had always believed that dreams were just fleeting images of the subconscious mind, until the night she discovered she could paint them.</p>
+          <p>It started innocently enough. She painted what she saw in her dreams—abstract landscapes, impossible colors, and emotions made tangible. But when her first exhibition opened, something extraordinary happened.</p>
+          <p>A man approached her, tears streaming down his face. He said he recognized the painting because he had dreamed it too. Then came another visitor, and another. Each person saw their own dreams reflected in her work.</p>
+          <p>Maya realized her paintings held a universal truth: we are all dreamers, all seekers, all searching for meaning in the darkness of sleep. Her art became a bridge between the conscious and unconscious worlds, healing those who saw themselves in her colors.</p>
+          <p>In painting her dreams, she had inadvertently painted the souls of everyone who watched.</p>`
+      },
+      story2: {
+        title: 'Midnight Conversations',
+        meta: 'Written by James Chen • 12 min read',
+        content: `<p>The café was nearly empty at midnight when Alex walked in, ordered black coffee, and took a seat by the window. That's when she noticed him—a stranger sitting alone with a cup of untouched tea.</p>
+          <p>Their eyes met briefly, and something unspoken passed between them. He smiled, not at her, but at something beyond her. She found herself sitting at his table without knowing why.</p>
+          <p>"I'm running away," she said, not bothering with introductions.</p>
+          <p>"From what?" he asked gently.</p>
+          <p>"Everything that doesn't feel right. My job, my relationships, my life." The words spilled out like she'd been waiting for this moment forever.</p>
+          <p>He listened without judgment, sharing his own secrets as the night deepened. By dawn, they were strangers again, but they were also soulmates—two people who had glimpsed each other's truths in the quietness of midnight.</p>
+          <p>They left the café separately, never to meet again. But both carried the memory of a stranger who had become their mirror.</p>`
+      },
+      story3: {
+        title: 'The Last Mountain Climb',
+        meta: 'Written by Linda Torres • 18 min read',
+        content: `<p>At sixty-five, Elena had conquered every major peak on Earth. But Mount Wisdom had eluded her for thirty years. Now, with her body showing signs of age and her competitive fire dimming, she decided to make one final ascent.</p>
+          <p>The climb was harder than she remembered. Her lungs protested, her muscles burned, and doubt crept into her mind like fog. Halfway up, she sat on a rocky outcrop, ready to turn back.</p>
+          <p>Then she saw him—a young climber struggling behind her, looking as defeated as she felt. Without thinking, she stood up and continued climbing, setting a steady pace. The young man followed.</p>
+          <p>When they reached the summit, they both collapsed, gasping. But as Elena looked out at the world below, she understood something she had never grasped before: the mountain wasn't about proving herself to the world. It was about discovering who she was without the need to conquer.</p>
+          <p>Elena helped the young man to his feet, and they descended together. She had finally reached the peak, not as a champion, but as a teacher, a guide, and a human being whole in her own right.</p>`
+      },
+      story4: {
+        title: 'Garden of Secrets',
+        meta: 'Written by Michael Ross • 20 min read',
+        content: `<p>The old house had been in the family for generations, but no one had entered the garden out back for over twenty years. When Sophie inherited the house, she found the gate locked.</p>
+          <p>The key was hidden in her grandmother's diary, along with a note: "In the garden, secrets grow like flowers. Some are beautiful, some are thorny, but all must be revealed."</p>
+          <p>When she finally opened the gate, Sophie found a garden frozen in time—overgrown, mysterious, and calling to her. As she cleared the weeds, she discovered photographs buried beneath the soil, letters stuck between roots, and a diary detailing her family's hidden history.</p>
+          <p>What she learned changed everything: stories of sacrifice, love, betrayal, and redemption. Her grandmother had created this garden as a living archive of family truths.</p>
+          <p>Sophie realized the garden had been waiting for someone who was ready to listen. By restoring it, she restored her family's fractured history and discovered that the secrets buried there were seeds for healing and growth.</p>`
+      },
+      story5: {
+        title: 'Letters Unsent',
+        meta: 'Written by Emma Williams • 16 min read',
+        content: `<p>David found the box of letters in his attic on a rainy afternoon. They were all addressed to him, written in his late wife's handwriting, spanning twenty years. But they had never been sent.</p>
+          <p>As he read them, he discovered the woman he thought he knew. Letters written during moments of doubt, screaming silently on the page. Letters of apology for words unspoken. Letters of love so profound it brought him to his knees.</p>
+          <p>One letter, dated the year before she died, simply said: "I was always afraid you'd leave if you knew how much I needed you. So I kept my deepest feelings locked away. This is my confession and my inheritance to you."</p>
+          <p>David wept not with grief, but with gratitude. His wife had trusted him with her unspoken heart. She had given him a final gift: proof that love doesn't always need to be voiced to be real.</p>
+          <p>He framed one letter for his bedroom wall—a daily reminder that the greatest love is often the one we're too afraid to send.</p>`
+      },
+      story6: {
+        title: 'Colors of the Soul',
+        meta: 'Written by Nina Patel • 14 min read',
+        content: `<p>Aria had synesthesia—she saw emotions, sounds, and feelings as colors. For most of her life, she thought she was broken until she picked up a paintbrush.</p>
+          <p>Her paintings were unlike anything the world had seen. When someone listened to music, they saw Aria's interpretation of those colors. When people felt joy, they recognized it in her palette.</p>
+          <p>Children who struggled to express their emotions would stand before her paintings and finally understand themselves. Adults who had forgotten how to dream found wonder in her use of light and shadow.</p>
+          <p>Critics called her a genius. But Aria knew the truth: she was simply translating what everyone else felt but couldn't see, into a language the world could finally understand.</p>
+          <p>In her studio, surrounded by colors that only she could see, Aria realized that being different wasn't a curse. It was a gift—the ability to show others the hidden beauty that lives within all of us.</p>`
+      }
+    };
+
+    // Read story
+    function readStory(storyId) {
+      const story = storiesData[storyId];
+      if (story) {
+        document.getElementById('storyReader').style.display = 'block';
+        document.getElementById('storyTitle').textContent = story.title;
+        document.getElementById('storyMeta').textContent = story.meta;
+        document.getElementById('storyContent').innerHTML = story.content;
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Back to stories list
+    function backToStories() {
+      document.getElementById('storyReader').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // Update user greeting
+    window.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUser();
+      if (user) {
+        document.getElementById('userGreeting').textContent = `Hi, ${user.username}!`;
+      }
+    });
+  </script>
+</body>
+</html>

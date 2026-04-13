@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Hub - Home</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1 class="header-title">Learning Hub</h1>
+        <p class="header-subtitle">Expand your knowledge</p>
+      </div>
+      <div class="header-actions">
+        <span id="userGreeting" style="color: var(--accent-brown); font-weight: 500;"></span>
+        <button class="btn-logout" onclick="logoutUser()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h2 class="welcome-title">Welcome to Learning Hub</h2>
+      <p class="welcome-message">Choose a category below to start your learning journey</p>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="categories-grid">
+      <!-- Skills Card -->
+      <div class="category-card" onclick="navigateTo('skills.html')">
+        <div class="category-icon">📚</div>
+        <h3 class="category-title">Skills</h3>
+        <p class="category-description">Learn programming, communication, and aptitude skills to enhance your abilities.</p>
+      </div>
+
+      <!-- Stories Card -->
+      <div class="category-card" onclick="navigateTo('stories.html')">
+        <div class="category-icon">📖</div>
+        <h3 class="category-title">Stories</h3>
+        <p class="category-description">Immerse yourself in captivating short stories and inspiring narratives.</p>
+      </div>
+
+      <!-- Novels Card -->
+      <div class="category-card" onclick="navigateTo('novels.html')">
+        <div class="category-icon">📕</div>
+        <h3 class="category-title">Novels</h3>
+        <p class="category-description">Explore full-length novels and literary masterpieces across genres.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Update user greeting on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      const user = getCurrentUser();
+      if (user) {
+        document.getElementById('userGreeting').textContent = `Hi, ${user.username}!`;
+      }
+    });
+  </script>
+</body>
+</html>
